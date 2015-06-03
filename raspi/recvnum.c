@@ -11,6 +11,9 @@
 #define FALSE 0
 #define TRUE (!FALSE)
 
+#define RX_PIN 4
+#define TX_PIN 26
+
 #define FIND_LEAD 0
 #define LEAD1 1
 #define LEAD2 2
@@ -24,22 +27,17 @@ int main(void) {
 	int state = FIND_LEAD;
 	long t, d;
 
-	printf("Setup wiringPi to read radio on pin 4.\n");
 	wiringPiSetupGpio();
-	pinMode(4, INPUT);
-	pullUpDnControl(4, PUD_DOWN);
 
-//	if (!piHiPri(2)) {
-//		printf("Enabled high priority mode.\n");
-//	} else {
-//		printf("Unable to set high priority mode.\n");
-//	}
-	
+	printf("Setup wiringPi to read radio on pin %d.\n", RX_PIN);
+	pinMode(RX_PIN, INPUT);
+	pullUpDnControl(RX_PIN, PUD_DOWN);
+
 	printf("Begin main loop.\n");
 	t = 0L;
 	d = 0L;
 	for(;;) {  // outer loop
-		curState = digitalRead(4);
+		curState = digitalRead(RX_PIN);
 		if (lastState == LOW && curState  == HIGH) {
 			lastState = HIGH;
 			t = millis();
