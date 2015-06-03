@@ -86,13 +86,14 @@ int main(void) {
 					break;
 				
 				case IN_MSG:
+					printf(" (%ld)", d);
 					if (d < 15L) {
 						printf("0");
 					} else if (d > 15 && d < 25L) {
 						printf("1");
-					} else if (d > 25L && d < 35L) {
-						printf("\n");
-						//printf("End message.\n");
+					} else if (d >= 25L) {
+						//printf("\n");
+						printf(" End message.\n");
 						state = FIND_LEAD;
 					}
 					break;
